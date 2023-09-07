@@ -26,23 +26,23 @@ RSpec.describe Ship do
 
     it 'will return true when ship health is at 0' do
       ship.hit
-      expect(ship.sunk).to be false
+      expect(ship.sunk?).to be false
       ship.hit
-      expect(ship.sunk).to be false
+      expect(ship.sunk?).to be false
       ship.hit
       expect(ship.health).to eq(0)
-      expect(ship.sunk).to be true
+      expect(ship.sunk?).to be true
     end
     
     it 'will work for ships starting with different health' do
       acc = Ship.new("Air Craft Carrier", 4)
       expect(acc.health).to eq(4)
-      ship.hit
-      ship.hit
-      ship.hit
-      ship.hit
+      acc.hit
+      acc.hit
+      acc.hit
+      acc.hit
       expect(acc.health).to eq(0)
-      expect(acc.sunk).to be true
+      expect(acc.sunk?).to be true
     end
   end
 end
