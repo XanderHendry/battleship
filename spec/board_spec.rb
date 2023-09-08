@@ -22,5 +22,26 @@ RSpec.describe Board do
 
   end
 
-  
+  describe '#valid_placement?' do
+    describe '#valid_length?' do
+
+    end
+
+    describe '#consecutive?' do
+
+    end
+
+    describe '#diagonal?' do
+
+    end
+
+    describe '#overlap?' do
+
+    end
+
+    it 'passes all helper method placement checks' do
+
+    end
+
+  end
 end
