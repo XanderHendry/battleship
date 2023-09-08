@@ -60,13 +60,16 @@ RSpec.describe Board do
       end
     end
 
-    describe '#overlap?' do
-
+    describe '#all_vacant?' do
+      xit 'cam determine if all spaces are vacant' do
+        @board.place(@cruiser, ["A1", "A2", "A3"])
+        expect(@board.all_vacant?(@submarine, ["A1", "B1"])).to be false
+      end
     end
 
     it 'passes all helper method placement checks' do
-
+      expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to be true
+      expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to be true
     end
-
   end
 end
