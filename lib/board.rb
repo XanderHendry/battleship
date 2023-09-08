@@ -33,16 +33,24 @@ class Board
     ship.length == coordinates.length
   end
 
+  def conhelper(split, position)
+    base = split.map {|num| num[position]}
+    range = (base.first)..(base.last)
+    range.to_a.length == base.length
+  end
+
   def consecutive?(ship, coordinates)
     split = coordinates.map {|elements| elements.split('') }
     if split.all? { |element| element[0] == split[0][0] }
-      horizontal = split.map {|num| num[1].to_i}
-      range = (horizontal.first)..(horizontal.last)
-      range.to_a.length == horizontal.length
+      conhelper(split, 1)
+      # horizontal = split.map {|num| num[1].to_i}
+      # range = (horizontal.first)..(horizontal.last)
+      # range.to_a.length == horizontal.length
     elsif split.all? { |element| element[1] == split[0][1]}
-      vertical = split.map {|letter| letter[0]}
-      range = (vertical.first)..(vertical.last)
-      range.to_a.length == vertical.length
+      conhelper(split, 1)
+      # vertical = split.map {|letter| letter[0]}
+      # range = (vertical.first)..(vertical.last)
+      # range.to_a.length == vertical.length
     else 
       false
     end
