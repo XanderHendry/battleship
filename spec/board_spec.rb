@@ -119,11 +119,12 @@ RSpec.describe Board do
     end
   end
 
-  xdescribe '#render' do
+  describe '#render' do
     before(:each) do
       @cruiser = Ship.new("Cruiser", 3)
       @submarine = Ship.new("Submarine", 2) 
     end
+
     it 'will render the board' do
       expect(@board.render).to eq("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
     end

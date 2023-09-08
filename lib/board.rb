@@ -70,4 +70,18 @@ class Board
       end
     end
   end
+
+  def render(reveal = false)
+    "  1 2 3 4 \n" +
+    "A #{r("A1", reveal)} #{r("A2", reveal)} #{r("A3", reveal)} #{r("A4", reveal)} \n" +
+    "B #{r("B1", reveal)} #{r("B2", reveal)} #{r("B3", reveal)} #{r("B4", reveal)} \n" +
+    "C #{r("C1", reveal)} #{r("C2", reveal)} #{r("C3", reveal)} #{r("C4", reveal)} \n" +
+    "D #{r("D1", reveal)} #{r("D2", reveal)} #{r("D3", reveal)} #{r("D4", reveal)} \n"
+  end
+
+  def r(cell, reveal = false)
+    @cells[cell].render(reveal)
+  end
+
+
 end
