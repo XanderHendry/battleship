@@ -19,7 +19,16 @@ RSpec.describe Board do
   end
 
   describe '#valid_coordinate?' do
-
+    it 'can determine when a given coordinate is within the board' do
+      expect(@board.valid_coordinate?("A1")).to be true
+      expect(@board.valid_coordinate?("D4")).to be true
+    end
+    
+    it 'can determine when a given coordinate is not within the board' do
+      expect(@board.valid_coordinate?("A5")).to be false
+      expect(@board.valid_coordinate?("E1")).to be false
+      expect(@board.valid_coordinate?("A22")).to be false
+    end
   end
 
   describe '#valid_placement?' do
