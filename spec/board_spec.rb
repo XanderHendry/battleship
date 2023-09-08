@@ -40,6 +40,7 @@ RSpec.describe Board do
 
     describe '#valid_length?' do
       it 'can determine when number of coordinates do not map ship length' do
+        expect(@board.valid_length?(@cruiser, ["A1", "A2", "A3"])).to be true
         expect(@board.valid_length?(@cruiser, ["A1", "A2"])).to be false
         expect(@board.valid_length?(@submarine, ["A2", "A3", "A4"])).to be false
       end
@@ -58,6 +59,8 @@ RSpec.describe Board do
       
     describe '#not_diagonal?' do
       it 'can determine when an array of cells are not diagonal' do
+        expect(@board.consecutive?(@cruiser, ["A1", "A2", "A3"])).to be true
+        expect(@board.consecutive?(@submarine, ["A1", "B1"])).to be true
         expect(@board.not_diagonal?(@cruiser, ["A1", "B2", "C3"])).to be false
         expect(@board.not_diagonal?(@submarine, ["C2", "D3"])).to be false
       end
@@ -69,6 +72,7 @@ RSpec.describe Board do
         @board.cells["A2"].place_ship(@cruiser)
         @board.cells["A3"].place_ship(@cruiser)
         expect(@board.all_vacant?(@submarine, ["A1", "B1"])).to be false
+        expect(@board.all_vacant?(@submarine, ["B1", "C1"])).to be true
       end
     end
 
@@ -148,7 +152,7 @@ RSpec.describe Board do
       expect(@board.render).to eq("  1 2 3 4 \n" + "A H . . . \n" + "B . . . M \n" + "C X . . . \n" + "D X . . . \n")
     end 
 
-    it 'will render the board with hits, misses, and sunken ships, with the ship hidden' do
+    it 'will render the board with hits, misses, and sunken ships, with the ship displayed' do
       @board.place(@cruiser, ['A1', 'A2', 'A3'])
       @board.place(@submarine, ['C1', 'D1'])
       @board.cells['A1'].fire_upon
