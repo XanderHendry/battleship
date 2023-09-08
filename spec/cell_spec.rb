@@ -53,6 +53,7 @@ RSpec.describe Cell do
       expect(@cell.ship.health).to eq(3)
       @cell.fire_upon
       expect(@cell.ship.health).to eq(2)
+      expect(@cell.fired_upon?).to be true
     end
 
     it 'will not fire upon a cell more than once' do
