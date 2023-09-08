@@ -22,6 +22,7 @@ RSpec.describe Cell do
   end
 
   describe '#empty?' do
+
     it 'will return true if Cell has no Ship (default)' do
       expect(@cell.empty?).to eq(true)
     end
