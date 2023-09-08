@@ -4,6 +4,7 @@ RSpec.describe Cell do
   before(:each) do
     @cell = Cell.new("A1")
     @ship = Ship.new("Cruiser", 3)
+  end
   describe '#initialize' do
     it 'can initialize' do
       expect(@cell).to be_a(Cell)
@@ -48,7 +49,7 @@ RSpec.describe Cell do
       expect(@cell.fired_upon?).to eq(true)
     end
 
-    it 'will damage a ship if the cell holds one' do.
+    it 'will damage a ship if the cell holds one' do
       @cell.place_ship(@ship)
       expect(@cell.ship.health).to eq(3)
       @cell.fire_upon

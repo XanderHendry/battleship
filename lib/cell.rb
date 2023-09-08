@@ -1,8 +1,12 @@
 class Cell
   attr_reader :coordinate,
-  :ship
+              :ship
   def initialize(coordinate)
   @coordinate = coordinate
   @ship = nil
+  end
+
+  def place_ship(ship)
+    @ship = ship
   end
 end
