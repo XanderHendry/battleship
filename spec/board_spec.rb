@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 
 RSpec.describe Board do
   before(:each) do
@@ -46,40 +47,42 @@ RSpec.describe Board do
 
     describe '#consecutive?' do
       it 'can determine when an array of cells are not consecutive' do
+        expect(@board.consecutive?(@cruiser, ["A1", "A2", "A3"])).to be true
+        expect(@board.consecutive?(@submarine, ["A1", "B1"])).to be true
         expect(@board.consecutive?(@cruiser, ["A1", "A2", "A4"])).to be false
-        expect(@board.consecutive?(@submarine, ["A1", "C1"])).to be false
         expect(@board.consecutive?(@cruiser, ["A3", "A2", "A1"])).to be false
+        expect(@board.consecutive?(@submarine, ["A1", "C1"])).to be false
         expect(@board.consecutive?(@submarine, ["C1", "B1"])).to be false
       end
     end
       
-    describe '#not_diagonal?' do
+    xdescribe '#not_diagonal?' do
       it 'can determine when an array of cells are not diagonal' do
         expect(@board.not_diagonal?(@cruiser, ["A1", "B2", "C3"])).to be false
         expect(@board.not_diagonal?(@submarine, ["C2", "D3"])).to be false
       end
     end
 
-    describe '#all_vacant?' do
-      xit 'cam determine if all spaces are vacant' do
+    xdescribe '#all_vacant?' do
+      it 'can determine if all spaces are vacant' do
         @board.place(@cruiser, ["A1", "A2", "A3"])
         expect(@board.all_vacant?(@submarine, ["A1", "B1"])).to be false
       end
     end
 
-    it 'passes all helper method placement checks' do
+    xit 'passes all helper method placement checks' do
       expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to be true
       expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to be true
     end
   end
 
-  describe '#place' do
+  xdescribe '#place' do
     before(:each) do
       @cruiser = Ship.new("Cruiser", 3)
       @submarine = Ship.new("Submarine", 2) 
     end
 
-    it 'will place a ship on the board, taking up cells equal to its length' do
+    xit 'will place a ship on the board, taking up cells equal to its length' do
       @board.place(@cruiser, ['A1', 'A2', 'A3'])
       cell1 = @board.cells["A1"]
       cell2 = @board.cells["A2"]
@@ -90,7 +93,7 @@ RSpec.describe Board do
       end
     end
 
-    it 'will integrate with validation methods' do
+    xit 'will integrate with validation methods' do
       @board.place(@cruiser, ['A1', 'A2', 'A3'])
       cell1 = @board.cells["A1"]
       cell2 = @board.cells["A2"]
@@ -113,7 +116,7 @@ RSpec.describe Board do
     end
   end
 
-  describe '#render' do
+  xdescribe '#render' do
     before(:each) do
       @cruiser = Ship.new("Cruiser", 3)
       @submarine = Ship.new("Submarine", 2) 

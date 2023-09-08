@@ -34,7 +34,18 @@ class Board
   end
 
   def consecutive?(ship, coordinates)
-    #validates that all cells in coodinates are in consecutive positions
+    split = coordinates.map {|elements| elements.split('') }
+    if split.all? { |element| element[0] == split[0][0] }
+      horizontal = split.map {|num| num[1].to_i}
+      range = (horizontal.first)..(horizontal.last)
+      range.to_a.length == horizontal.length
+    elsif split.all? { |element| element[1] == split[0][1]}
+      vertical = split.map {|letter| letter[0]}
+      range = (vertical.first)..(vertical.last)
+      range.to_a.length == vertical.length
+    else 
+      false
+    end
   end
 
   def not_diagonal?(ship, coordinates)
