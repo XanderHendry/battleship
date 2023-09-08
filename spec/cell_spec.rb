@@ -30,4 +30,35 @@ RSpec.describe Cell do
       expect(@cell.empty?).to eq(false)
     end
   end
+
+  def '#fired upon?' do
+    it 'will return false if a cell has not been fired upon (default)' do
+      expect(@cell.fired_upon?).to eq(false)
+    end
+
+    it 'will return true if a cell has been fired upon' do
+      @cell.fire_upon
+      expect(@cell.fired_upon?).to eq(true)
+    end
+  end
+
+  def '#fire upon' do
+    it 'will fire upon a cell' do
+      @cell.fire_upon
+      expect(@cell.fired_upon?).to eq(true)
+    end
+
+    it 'will damage a ship if the cell holds one' do.
+      @cell.place_ship(@ship)
+      expect(@cell.ship.health).to eq(3)
+      @cell.fire_upon
+      expect(@cell.ship.health).to eq(2)
+    end
+
+    it 'will not fire upon a cell more than once' do
+      @cell.fire_upon
+      expect(@cell.fired_upon?).to eq(true)
+      expect(@cell.fire_upon).to eq(false)
+    end
+  end
 end
