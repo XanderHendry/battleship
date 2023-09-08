@@ -72,4 +72,84 @@ RSpec.describe Board do
       expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to be true
     end
   end
+
+  describe '#place' do
+    before(:each) do
+      @cruiser = Ship.new("Cruiser", 3)
+      @submarine = Ship.new("Submarine", 2) 
+    end
+
+    it 'will place a ship on the board, taking up cells equal to its length' do
+      @board.place(@cruiser, ['A1', 'A2', 'A3'])
+      cell1 = @board.cells["A1"]
+      cell2 = @board.cells["A2"]
+      cell3 = @board.cells["A3"]
+      cells = [cell1, cell2, cell3]
+      cells.each do |cell|
+        expect(cell.ship).to eq(@cruiser)
+      end
+    end
+
+    it 'will integrate with validation methods' do
+      @board.place(@cruiser, ['A1', 'A2', 'A3'])
+      cell1 = @board.cells["A1"]
+      cell2 = @board.cells["A2"]
+      cell3 = @board.cells["A3"]
+      cruiser_cells = [cell1, cell2, cell3]
+      cruiser_cells.each do |cell|
+        expect(cell.ship).to eq(@cruiser)
+      end
+      expect@board.place(@submarine, ['A3', 'B3']).to be_nil
+      expect@board.place(@submarine, ['C3', 'B2']).to be_nil
+      expect@board.place(@submarine, ['B3', 'D3']).to be_nil
+      expect@board.place(@submarine, ['C1', 'C2', 'C3']).to be_nil
+      @board.place(@submarine, ['B2', 'C2'])
+      cell4 = @board.cells['B2']
+      cell5 = @board.cells['C2']
+      sub_cells = [cell4, cell5]
+      sub_cells.each do |cell|
+        expect(cell.ship).to eq(@submarine)
+      end
+    end
+  end
+
+  describe '#render' do
+    before(:each) do
+      @cruiser = Ship.new("Cruiser", 3)
+      @submarine = Ship.new("Submarine", 2) 
+    end
+    it 'will render the board' do
+      expect(@board.render).to eq("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
+    end
+
+    it 'will render the board with the ship hidden' do
+      @board.place(@cruiser, ['A1', 'A2', 'A3'])
+      expect(@board.render).to eq("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
+    end
+    
+    it 'will render the board with the ship displayed' do
+      @board.place(@cruiser, ['A1', 'A2', 'A3'])
+      expect(@board.render(true)).to eq("  1 2 3 4 \n" + "A S S S . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
+    end
+
+    it 'will render the board with hits, misses, and sunken ships, with the ship hidden' do
+      @board.place(@cruiser, ['A1', 'A2', 'A3'])
+      @board.place(@submarine, ['C1', 'D1'])
+      @board.cells['A1'].fire_upon
+      @board.cells['B4'].fire_upon
+      @board.cells['C1'].fire_upon
+      @board.cells['D1'].fire_upon
+      expect(@board.render).to eq("  1 2 3 4 \n" + "A H . . . \n" + "B . . . M \n" + "C X . . . \n" + "D X . . . \n")
+    end 
+
+    it 'will render the board with hits, misses, and sunken ships, with the ship hidden' do
+      @board.place(@cruiser, ['A1', 'A2', 'A3'])
+      @board.place(@submarine, ['C1', 'D1'])
+      @board.cells['A1'].fire_upon
+      @board.cells['B4'].fire_upon
+      @board.cells['C1'].fire_upon
+      @board.cells['D1'].fire_upon
+      expect(@board.render(true)).to eq("  1 2 3 4 \n" + "A H S S . \n" + "B . . . M \n" + "C X . . . \n" + "D X . . . \n")
+    end
+  end
 end
