@@ -79,13 +79,13 @@ RSpec.describe Board do
     end
   end
 
-  xdescribe '#place' do
+  describe '#place' do
     before(:each) do
       @cruiser = Ship.new("Cruiser", 3)
       @submarine = Ship.new("Submarine", 2) 
     end
 
-    xit 'will place a ship on the board, taking up cells equal to its length' do
+    it 'will place a ship on the board, taking up cells equal to its length' do
       @board.place(@cruiser, ['A1', 'A2', 'A3'])
       cell1 = @board.cells["A1"]
       cell2 = @board.cells["A2"]
@@ -96,7 +96,7 @@ RSpec.describe Board do
       end
     end
 
-    xit 'will integrate with validation methods' do
+    it 'will integrate with validation methods' do
       @board.place(@cruiser, ['A1', 'A2', 'A3'])
       cell1 = @board.cells["A1"]
       cell2 = @board.cells["A2"]
@@ -105,10 +105,10 @@ RSpec.describe Board do
       cruiser_cells.each do |cell|
         expect(cell.ship).to eq(@cruiser)
       end
-      expect@board.place(@submarine, ['A3', 'B3']).to be_nil
-      expect@board.place(@submarine, ['C3', 'B2']).to be_nil
-      expect@board.place(@submarine, ['B3', 'D3']).to be_nil
-      expect@board.place(@submarine, ['C1', 'C2', 'C3']).to be_nil
+      expect(@board.place(@submarine, ['A3', 'B3'])).to be_nil
+      expect(@board.place(@submarine, ['C3', 'B2'])).to be_nil
+      expect(@board.place(@submarine, ['B3', 'D3'])).to be_nil
+      expect(@board.place(@submarine, ['C1', 'C2', 'C3'])).to be_nil
       @board.place(@submarine, ['B2', 'C2'])
       cell4 = @board.cells['B2']
       cell5 = @board.cells['C2']
