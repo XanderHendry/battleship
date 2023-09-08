@@ -88,7 +88,7 @@ RSpec.describe Cell do
     it 'will return "H" if the cell has been fired upon and contains a non-sunk ship' do
       @cell.place_ship(@ship)
       @cell.fire_upon
-      expect(ship.sunk?).to be false
+      expect(@ship.sunk?).to be false
       expect(@cell.render).to eq("H")
     end
 
