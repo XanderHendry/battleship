@@ -24,4 +24,41 @@ class Board
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate)
   end
+
+  def valid_placement?(ship, coordinates)
+    valid_length?(ship, coordinates) && 
+    consecutive?(ship, coordinates) && 
+    not_diagonal?(ship, coordinates) && 
+    all_vacant?(ship, coordinates)
+  end
+
+  def valid_length?(ship, coordinates)
+    ship.length == coordinates.length
+  end
+
+  def conhelper(split, position)
+    base = split.map {|num| num[position]}
+    range = (base.first)..(base.last)
+    range.to_a.length == base.length
+  end
+
+  def consecutive?(ship, coordinates)
+    split = coordinates.map {|elements| elements.split('') }
+    if split.all? { |element| element[0] == split[0][0] }
+      conhelper(split, 1)
+    elsif split.all? { |element| element[1] == split[0][1]}
+      conhelper(split, 0)
+    else 
+      false
+    end
+  end
+
+  def not_diagonal?(ship, coordinates)
+    split = coordinates.map {|elements| elements.split('') }
+    split.all? { |element| element[0] == split[0][0] } || split.all? { |element| element[1] == split[0][1]}
+  end
+  
+  def all_vacant?(ship, coordinates)
+    coordinates.all? { |key| @cells[key].empty? }
+  end
 end
