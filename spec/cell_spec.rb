@@ -62,4 +62,21 @@ RSpec.describe Cell do
       expect(@cell.fire_upon).to eq(false)
     end
   end
+
+  describe '#render' do
+    it 'will return "." if the cell had not been fired upon and has no ship' do
+    end  
+
+    it 'will return "S" if the cell had not been fired upon and contains a ship' do
+    end  
+
+    it 'will return "M" if the cell had been fired upon and has no ship' do
+    end 
+     
+    it 'will return "H" if the cell has been fired upon and contains a non-sunk ship' do
+    end
+
+    it 'will return "H" if the cell has been fired upon and contains a sunk ship' do
+    end 
+
 end
