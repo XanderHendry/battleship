@@ -24,4 +24,24 @@ class Board
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate)
   end
+
+  def valid_placement?(coordinates)
+    #runs all validation helper methods to validate placement of Ship objects"
+  end
+
+  def valid_length?(coordinates)
+    #validates the length of the ship, vs the length of the coordinates array
+  end
+
+  def consecutive?(coordinates)
+    #validates that all cells in coodinates are in consecutive positions
+  end
+
+  def not_diagonal?(coordinates)
+    #validates that coordinates given will place ship in a straight line
+  end
+  
+  def all_vacant?(coordinates)
+    #validates that there are no Ships ocupying any cell in the coordinates array
+  end
 end
