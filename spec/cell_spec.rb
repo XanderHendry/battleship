@@ -22,7 +22,7 @@ RSpec.describe Cell do
   end
 
   describe '#empty?' do
-    it 'will return true if Cell has no Ship (describeault)' do
+    it 'will return true if Cell has no Ship (defeault)' do
       expect(@cell.empty?).to eq(true)
     end
 
@@ -33,7 +33,7 @@ RSpec.describe Cell do
   end
 
   describe '#fired upon?' do
-    it 'will return false if a cell has not been fired upon (describeault)' do
+    it 'will return false if a cell has not been fired upon (default)' do
       expect(@cell.fired_upon?).to eq(false)
     end
 
