@@ -32,16 +32,32 @@ RSpec.describe Board do
   end
 
   describe '#valid_placement?' do
-    describe '#valid_length?' do
+    before(:each) do
+      @cruiser = Ship.new("Cruiser", 3)
+      @submarine = Ship.new("Submarine", 2) 
+    end
 
+    describe '#valid_length?' do
+      it 'can determine when number of coordinates do not map ship length' do
+        expect(@board.valid_length?(@cruiser, ["A1", "A2"])).to be false
+        expect(@board.valid_length?(@submarine, ["A2", "A3", "A4"])).to be false
+      end
     end
 
     describe '#consecutive?' do
-
+      it 'can determine when an array of cells are not consecutive' do
+        expect(@board.consecutive?(@cruiser, ["A1", "A2", "A4"])).to be false
+        expect(@board.consecutive?(@submarine, ["A1", "C1"])).to be false
+        expect(@board.consecutive?(@cruiser, ["A3", "A2", "A1"])).to be false
+        expect(@board.consecutive?(@submarine, ["C1", "B1"])).to be false
+      end
     end
-
-    describe '#diagonal?' do
-
+      
+    describe '#not_diagonal?' do
+      it 'can determine when an array of cells are not diagonal' do
+        expect(@board.not_diagonal?(@cruiser, ["A1", "B2", "C3"])).to be false
+        expect(@board.not_diagonal?(@submarine, ["C2", "D3"])).to be false
+      end
     end
 
     describe '#overlap?' do
