@@ -26,7 +26,10 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    #runs all validation helper methods to validate placement of Ship objects"
+    valid_length?(ship, coordinates) && 
+    consecutive?(ship, coordinates) && 
+    not_diagonal?(ship, coordinates) && 
+    all_vacant?(ship, coordinates)
   end
 
   def valid_length?(ship, coordinates)
@@ -43,24 +46,19 @@ class Board
     split = coordinates.map {|elements| elements.split('') }
     if split.all? { |element| element[0] == split[0][0] }
       conhelper(split, 1)
-      # horizontal = split.map {|num| num[1].to_i}
-      # range = (horizontal.first)..(horizontal.last)
-      # range.to_a.length == horizontal.length
     elsif split.all? { |element| element[1] == split[0][1]}
-      conhelper(split, 1)
-      # vertical = split.map {|letter| letter[0]}
-      # range = (vertical.first)..(vertical.last)
-      # range.to_a.length == vertical.length
+      conhelper(split, 0)
     else 
       false
     end
   end
 
   def not_diagonal?(ship, coordinates)
-    #validates that coordinates given will place ship in a straight line
+    split = coordinates.map {|elements| elements.split('') }
+    split.all? { |element| element[0] == split[0][0] } || split.all? { |element| element[1] == split[0][1]}
   end
   
   def all_vacant?(ship, coordinates)
-    #validates that there are no Ships ocupying any cell in the coordinates array
+    coordinates.all? { |key| @cells[key].empty? }
   end
 end

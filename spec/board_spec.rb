@@ -56,23 +56,26 @@ RSpec.describe Board do
       end
     end
       
-    xdescribe '#not_diagonal?' do
+    describe '#not_diagonal?' do
       it 'can determine when an array of cells are not diagonal' do
         expect(@board.not_diagonal?(@cruiser, ["A1", "B2", "C3"])).to be false
         expect(@board.not_diagonal?(@submarine, ["C2", "D3"])).to be false
       end
     end
 
-    xdescribe '#all_vacant?' do
+    describe '#all_vacant?' do
       it 'can determine if all spaces are vacant' do
-        @board.place(@cruiser, ["A1", "A2", "A3"])
+        @board.cells["A1"].place_ship(@cruiser)
+        @board.cells["A2"].place_ship(@cruiser)
+        @board.cells["A3"].place_ship(@cruiser)
         expect(@board.all_vacant?(@submarine, ["A1", "B1"])).to be false
       end
     end
 
-    xit 'passes all helper method placement checks' do
+    it 'passes all helper method placement checks' do
       expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to be true
       expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to be true
+      expect(@board.consecutive?(@cruiser, ["A1", "A2", "A4"])).to be false
     end
   end
 
