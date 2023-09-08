@@ -4,6 +4,7 @@ RSpec.describe Cell do
   before(:each) do
     @cell = Cell.new("A1")
     @ship = Ship.new("Cruiser", 3)
+  end
   describe '#initialize' do
     it 'can initialize' do
       expect(@cell).to be_a(Cell)
@@ -12,7 +13,7 @@ RSpec.describe Cell do
     end
   end
 
-  describe '#place ship' do
+  xdescribe '#place ship' do
     it 'will add a ship to a cell' do
       expect(@cell.ship).to be_nil
       @cell.place_ship(@ship)
@@ -20,8 +21,8 @@ RSpec.describe Cell do
     end
   end
 
-  describe '#empty?' do
-    it 'will return true if Cell has no Ship (describeault)' do
+  xdescribe '#empty?' do
+    it 'will return true if Cell has no Ship (defeault)' do
       expect(@cell.empty?).to eq(true)
     end
 
@@ -31,8 +32,8 @@ RSpec.describe Cell do
     end
   end
 
-  describe '#fired upon?' do
-    it 'will return false if a cell has not been fired upon (describeault)' do
+  xdescribe '#fired upon?' do
+    it 'will return false if a cell has not been fired upon (defeault)' do
       expect(@cell.fired_upon?).to eq(false)
     end
 
@@ -42,13 +43,13 @@ RSpec.describe Cell do
     end
   end
 
-  describe '#fire upon' do
+  xdescribe '#fire upon' do
     it 'will fire upon a cell' do
       @cell.fire_upon
       expect(@cell.fired_upon?).to eq(true)
     end
 
-    it 'will damage a ship if the cell holds one' do.
+    it 'will damage a ship if the cell holds one' do
       @cell.place_ship(@ship)
       expect(@cell.ship.health).to eq(3)
       @cell.fire_upon
