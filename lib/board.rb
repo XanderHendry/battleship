@@ -84,5 +84,7 @@ class Board
     @cells[cell].render(reveal)
   end
 
-
+  def keys
+    @cells.keys
+  end
 end
