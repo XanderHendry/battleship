@@ -164,4 +164,10 @@ RSpec.describe Board do
       expect(@board.render(true)).to eq("  1 2 3 4 \n" + "A H S S . \n" + "B . . . M \n" + "C X . . . \n" + "D X . . . \n")
     end
   end
+
+  describe '#keys' do
+    it 'will list all keys in the cells hash' do
+      expect(@board.keys).to eq(@board.cells.keys)
+    end
+  end
 end

@@ -9,12 +9,12 @@ RSpec.describe Player do
       expect(player.board).to be_a(Board)
       expect(player.fireable_cells).to eq(player.board.keys)
       expect(player.ships).to be_a(Array)
-      expect(ships[0]).to be_a(Ship)
-      expect(ships[0].name).to eq("Cruiser")
-      expect(ships[0].length).to eq(3)
-      expect(ships[1]).to be_a(Ship)
-      expect(ships[1].name).to eq("Submarine")
-      expect(ships[1].length).to eq(2)
+      expect(player.ships[0]).to be_a(Ship)
+      expect(player.ships[0].name).to eq("Cruiser")
+      expect(player.ships[0].length).to eq(3)
+      expect(player.ships[1]).to be_a(Ship)
+      expect(player.ships[1].name).to eq("Submarine")
+      expect(player.ships[1].length).to eq(2)
     end
   end
 
