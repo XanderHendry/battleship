@@ -43,6 +43,7 @@ class Board
   end
 
   def consecutive?(ship, coordinates)
+    return false if coordinates.uniq.count != coordinates.count
     split = coordinates.map {|elements| elements.split('') }
     if split.all? { |element| element[0] == split[0][0] }
       conhelper(split, 1)
