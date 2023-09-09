@@ -37,5 +37,25 @@ class Game
       coordinates = gets.chomp.split(" ")
     end
     player1.place(player1.ships[1], coordinates)
+    gameplay
+  end
+
+  def gameplay
+    until player1.ship_health == 0 || player2.ship_health == 0
+      player1.turn
+      player2.turn
+    end
+    end_game
+  end
+
+  def end_game
+    if player1.ship_health == 0
+      "I won!"
+      gets
+    else
+      "You won!"
+      gets
+    end
+    main_menu
   end
 end
