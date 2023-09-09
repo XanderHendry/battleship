@@ -18,6 +18,7 @@ class Game
   end
 
   def setup
+    player2.place_ships
     puts "I have laid out my ships on the grid."
     puts "You now need to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
