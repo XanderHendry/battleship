@@ -34,7 +34,7 @@ RSpec.describe Player do
   
   describe '#render_board' do
     it 'will render board with ships displayed' do
-      expect(player.render_board).to eq(("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
+      expect(player.render_board).to eq(("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
       player.place(cruiser, ['A1', 'A2', 'A3'])
       expect(player.render_board).to eq("  1 2 3 4 \n" + "A S S S . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
     end
@@ -50,7 +50,7 @@ RSpec.describe Player do
     it 'can fire upon an opponents board' do
       ai = AI.new
       player.fire("A1")
-      expect(ai.render_board).to eq(("  1 2 3 4 \n" + "A M . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
+      expect(ai.render_board).to eq(("  1 2 3 4 \n" + "A M . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
     end
 
     it 'will return false if the cell has already been fired on' do
@@ -58,4 +58,5 @@ RSpec.describe Player do
       player.fire("A1")
       expect.player.fire("A1").to be false
     end
+  end
 end
