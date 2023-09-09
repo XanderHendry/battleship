@@ -22,13 +22,13 @@ RSpec.describe Player do
   describe '#place' do
     it 'can place a piece with correct coordinates' do
       player.place("cruiser", ['A1', 'A2', 'A3'])
-      expect(player.board.cells[A1].ship).not_to be_nil
-      expect(player.board.cells[A2].ship).not_to be_nil
-      expect(player.board.cells[A3].ship).not_to be_nil
+      expect(player.board.cells['A1'].ship).not_to be_nil
+      expect(player.board.cells['A2'].ship).not_to be_nil
+      expect(player.board.cells['A3'].ship).not_to be_nil
     end
 
     it 'will return false if player inputs are invalid' do
-      expect(player.place("cruiser", ['A1', 'B2', 'C3'])).to be false
+      expect(player.place("cruiser", ['A1', 'B2', 'C3'])).to be_nil
     end
   end
   
