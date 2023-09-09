@@ -29,14 +29,14 @@ class Game
       puts "Those are invalid coordinates. Please try again"
       coordinates = gets.chomp.split(" ")
     end
-    player1.place(player1.ships[0], coordinates)
+    player1.place(player1.ships[:submarine], coordinates)
     puts "Enter the squares for the Submarine (2 spaces):"
     coordinates = gets.chomp.split(" ")
     until player1.board.valid_placement?(player1.ships[1], coordinates)
       puts "Those are invalid coordinates. Please try again"
       coordinates = gets.chomp.split(" ")
     end
-    player1.place(player1.ships[1], coordinates)
+    player1.place(player1.ships[:cruiser], coordinates)
     gameplay
   end
 
