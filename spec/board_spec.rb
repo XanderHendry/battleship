@@ -54,6 +54,7 @@ RSpec.describe Board do
         expect(@board.consecutive?(@cruiser, ["A3", "A2", "A1"])).to be false
         expect(@board.consecutive?(@submarine, ["A1", "C1"])).to be false
         expect(@board.consecutive?(@submarine, ["C1", "B1"])).to be false
+        expect(@board.consecutive?(@cruiser, ["A1", "A1", "A3"])).to be false
       end
     end
       
