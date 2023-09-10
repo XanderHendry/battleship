@@ -24,7 +24,7 @@ RSpec.describe AI do
   describe '#render_board' do
     it 'will render board with ships displayed' do
       expect(ai.render_board).to eq(("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
-      ai.place_ship(:cruiser, ['A1', 'A2', 'A3'])
+      ai.place(:cruiser, ['A1', 'A2', 'A3'])
       expect(ai.render_board).to eq("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
     end
   end
@@ -34,7 +34,7 @@ RSpec.describe AI do
       it 'will not choose invalid cordinates' do
         coordinates = ai.select_placement_coordinates(ai.ships[:cruiser])
         expect(ai.board.valid_placement?(ai.ships[:cruiser], coordinates)).to be true
-        ai.place(ai.ships[:cruiser], coordinates)
+        ai.place(:cruiser, coordinates)
         coordinates = ai.select_placement_coordinates(:submarine)
         expect(ai.board.valid_placement?(ai.ships[:submarine], coordinates)).to be true
       end
