@@ -32,10 +32,11 @@ RSpec.describe AI do
   describe '#select_placement_coordinates' do
     10.times do
       it 'will not choose invalid cordinates' do
-        coordinates = ai.select_placement_coordinates(ai.ships[:cruiser])
+        coordinates = ai.select_placement_coordinates(:cruiser)
         expect(ai.board.valid_placement?(ai.ships[:cruiser], coordinates)).to be true
         ai.place(:cruiser, coordinates)
-        coordinates = ai.select_placement_coordinates(:submarine)
+        coordinates = ai.select_placement_coordinates_submarine
+        require 'pry'; binding.pry
         expect(ai.board.valid_placement?(ai.ships[:submarine], coordinates)).to be true
       end
     end
