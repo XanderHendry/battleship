@@ -85,7 +85,6 @@ class Game
     player1.fireable_cells.delete(coordinate)
     render
     feedback(player2)
-    end
     gets
   end
 
