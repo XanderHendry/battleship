@@ -7,7 +7,7 @@ class Human < Player
   end
 
   def place(ship, coordinates)
-    super
+      super
   end
 
   # def fire(coordinates)
