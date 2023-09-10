@@ -26,19 +26,19 @@ class Game
     puts "The Cruiser is three units long and the Submarine is two units long."
     puts "Enter the squares for the Cruiser (3 spaces):"
     coordinates = gets.chomp.split(" ")
-    until player1.board.valid_placement?(player1.ships[:cruiser], coordinates)
+    until player1.board.valid_placement?(:cruiser, coordinates)
       puts "Those are invalid coordinates. Please try again"
       coordinates = gets.chomp.split(" ")
     end
-    player1.place(player1.ships[:cruiser], coordinates)
+    player1.place(:cruiser, coordinates)
     render
     puts "Enter the squares for the Submarine (2 spaces):"
     coordinates = gets.chomp.split(" ")
-    until player1.board.valid_placement?(player1.ships[:submarine], coordinates)
+    until player1.board.valid_placement?(:submarine, coordinates)
       puts "Those are invalid coordinates. Please try again"
       coordinates = gets.chomp.split(" ")
     end
-    player1.place(player1.ships[:submarine], coordinates)
+    player1.place(:submarine, coordinates)
     render
     gameplay
   end
