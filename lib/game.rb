@@ -82,6 +82,7 @@ class Game
       coordinate = gets.chomp
     end
     player2.fire(coordinate)
+    player1.fireable_cells.delete(coordinate)
     render
     feedback(player2)
     end
@@ -93,6 +94,7 @@ class Game
     puts "My turn. I am firing on #{coordinate}."
     gets
     player1.fire(coordinate)
+    player2.fireable_cells.delete(coordinate)
     render
     feedback(player1)
     gets
