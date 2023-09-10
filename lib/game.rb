@@ -70,6 +70,11 @@ class Game
   end
 
   def turn
+    human_turn
+    ai_turn
+  end
+
+  def human_turn
     puts "Enter the coordinate for your shot:"
     coordinate = gets.chomp
     until player2.board.valid_coordinate?(coordinate) && player1.fireable_cells.include?(coordinate)
@@ -78,35 +83,40 @@ class Game
     end
     player2.fire(coordinate)
     render
-    case player2.board.cells[coordinate].render
-    when "H"
-      puts "Your shot on #{coordinate} was a hit"
-    when "M"
-      puts "Your shot on #{coordinate} was a miss"
-    when "X" 
-      puts "Your shot on #{coordinate} was a hit"
-      puts "You sunk one of my ships"
+    feedback(player2)
     end
     gets
+  end
+
+  def ai_turn
     coordinate = player2.fireable_cells.sample
     puts "My turn. I am firing on #{coordinate}."
     gets
     player1.fire(coordinate)
     render
-    case player1.board.cells[coordinate].render
-    when "H"
-      puts "My shot on #{coordinate} was a hit"
-    when "M"
-      puts "My shot on #{coordinate} was a miss"
-    when "X" 
-      puts "My shot on #{coordinate} was a hit"
-      puts "I sunk one of your ships"
-    end
+    feedback(player1)
     gets
   end
 
-      
-
-
-
+  def feedback(player)
+    pronoun_hash = Hash.new
+    if player.class == Human
+      pronoun_hash[:possessive] = "My"
+      pronoun_hash[:subject] = "I"
+      pronoun_hash[:opp_possessive] = "your"
+    elsif player.class == AI
+      pronoun_hash[:possessive] = "Your"
+      pronoun_hash[:subject] = "You"
+      pronoun_hash[:opp_possessive] = "my"
+    end
+    case player.board.cells[coordinate].render
+    when "H"
+      puts "#{pronoun_hash[:possessive]} shot on #{coordinate} was a hit"
+    when "M"
+      puts "#{pronoun_hash[:possessive]} shot on #{coordinate} was a miss"
+    when "X" 
+      puts "#{pronoun_hash[:possessive]} shot on #{coordinate} was a hit"
+      puts "#{pronoun_hash[:subject]} sunk one of #{pronoun_hash[:opp_possessive]} ships"
+    end
+  end
 end
