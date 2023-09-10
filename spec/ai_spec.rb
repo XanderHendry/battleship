@@ -35,8 +35,7 @@ RSpec.describe AI do
         coordinates = ai.select_placement_coordinates(:cruiser)
         expect(ai.board.valid_placement?(ai.ships[:cruiser], coordinates)).to be true
         ai.place(:cruiser, coordinates)
-        coordinates = ai.select_placement_coordinates_submarine
-        require 'pry'; binding.pry
+        coordinates = ai.select_placement_coordinates(:submarine)
         expect(ai.board.valid_placement?(ai.ships[:submarine], coordinates)).to be true
       end
     end

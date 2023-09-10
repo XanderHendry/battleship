@@ -14,20 +14,19 @@ class AI < Player
   end
 
   def select_placement_coordinates(ship)
-    orientation = [:c_horizontal, :c_vertical].sample
-    self.send(orientation)
-  end
-
-  def select_placement_coordinates_submarine
-    orientation = [:s_horizontal, :s_vertical].sample
-    coordinates = self.send(orientation)
-    until @board.valid_placement?(ships[:submarine], coordinates) == true
-      orientation = [:s_horizontal].sample
+    if ship == :cruiser
+      orientation = [:c_horizontal, :c_vertical].sample
+      self.send(orientation)
+    elsif ship == :submarine
+      orientation = [:s_horizontal, :s_vertical].sample
       coordinates = self.send(orientation)
+      until @board.valid_placement?(ships[:submarine], coordinates) == true
+        orientation = [:s_horizontal].sample
+        coordinates = self.send(orientation)
+      end
+      coordinates
     end
-    coordinates
   end
-  
 
   def c_horizontal
     first = ["A1", "A2", "B1", "B2", "C1", "C2", "D1", "D2"].sample
