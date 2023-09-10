@@ -32,31 +32,48 @@ RSpec.describe Player do
     end
   end
   
-  describe '#render_board' do
-    it 'will render board with ships displayed' do
-      expect(player.render_board).to eq(("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
+  # Move #render_board to subclasses
+  # describe '#render_board' do
+  #   it 'will render board with ships displayed' do
+  #     expect(player.render_board).to eq(("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
+  #     player.place(:cruiser, ['A1', 'A2', 'A3'])
+  #     expect(player.render_board).to eq("  1 2 3 4 \n" + "A S S S . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
+  #   end
+  # end
+
+  # Move #turn to Game class
+  # describe '#take_turn' do
+  #   xit 'can take a turn' do
+
+  #   end
+  # end
+
+  describe '#fire' do
+    it 'will fire upon the board' do
+      player.fire("A1")
+      expect(player.board.render).to eq(("  1 2 3 4 \n" + "A M . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
+    end
+
+    xit 'will return false if the cell has already been fired on' do
+      player.fire("A1")
+      expect.(player.fire("A1")).to be_nil
+    end
+    xit 'can fire upon an opponents board' do
+      ai = AI.new
+      player.fire("A1")
+      expect(ai.board.render).to eq(("  1 2 3 4 \n" + "A M . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
+    end
+  end
+
+  describe '#total_health' do
+    it 'will find the sum of the health of all ships in the array' do
+      expect(player.total_health).to eq(5)
+    end
+
+    it 'will find the current total after a ship takes a hit' do
       player.place(:cruiser, ['A1', 'A2', 'A3'])
-      expect(player.render_board).to eq("  1 2 3 4 \n" + "A S S S . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
-    end
-  end
-
-  describe '#take_turn' do
-    xit 'can take a turn' do
-
-    end
-  end
-
-  xdescribe '#fire' do
-    it 'can fire upon an opponents board' do
-      ai = AI.new
       player.fire("A1")
-      expect(ai.render_board).to eq(("  1 2 3 4 \n" + "A M . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
-    end
-
-    it 'will return false if the cell has already been fired on' do
-      ai = AI.new
-      player.fire("A1")
-      expect.player.fire("A1").to be false
+      expect(player.total_health).to eq(4)
     end
   end
 end

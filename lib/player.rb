@@ -8,12 +8,16 @@ class Player
     @ships = {cruiser: Ship.new("Cruiser", 3),
      submarine: Ship.new("Submarine", 2)}
   end
-
+     
   def place(name, coordinates)
     @board.place(@ships[name], coordinates)
   end 
-
-  def render_board
-    @board.render(true)
+    
+  def fire(coordinate)
+    @board.cells[coordinate].fire_upon
+  end
+    
+  def total_health
+    @ships.values.map{ |ship| ship.health}.sum
   end
 end
