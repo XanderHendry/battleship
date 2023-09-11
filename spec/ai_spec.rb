@@ -11,13 +11,13 @@ RSpec.describe AI do
       expect(ai).to be_a(AI)
       expect(ai.board).to be_a(Board)
       expect(ai.fireable_cells).to eq(ai.board.keys)
-      expect(ai.ships).to be_a(Hash)
-      expect(ai.ships[:cruiser]).to be_a(Ship)
-      expect(ai.ships[:cruiser].name).to eq("Cruiser")
-      expect(ai.ships[:cruiser].length).to eq(3)
-      expect(ai.ships[:submarine]).to be_a(Ship)
-      expect(ai.ships[:submarine].name).to eq("Submarine")
-      expect(ai.ships[:submarine].length).to eq(2)
+      expect(ai.ships).to be_a(Array)
+      expect(ai.ships[0]).to be_a(Ship)
+      expect(ai.ships[0].name).to eq("Cruiser")
+      expect(ai.ships[0].length).to eq(3)
+      expect(ai.ships[1]).to be_a(Ship)
+      expect(ai.ships[1].name).to eq("Submarine")
+      expect(ai.ships[1].length).to eq(2)
     end
   end
 
@@ -32,11 +32,11 @@ RSpec.describe AI do
   describe '#select_placement_coordinates' do
     10.times do
       it 'will not choose invalid cordinates' do
-        coordinates = ai.select_placement_coordinates(ai.ships[:cruiser])
-        expect(ai.board.valid_placement?(ai.ships[:cruiser], coordinates)).to be true
-        ai.place(:cruiser, coordinates)
-        coordinates = ai.select_placement_coordinates(ai.ships[:submarine])
-        expect(ai.board.valid_placement?(ai.ships[:submarine], coordinates)).to be true
+        coordinates = ai.select_placement_coordinates(ai.ships[0])
+        expect(ai.board.valid_placement?(ai.ships[0], coordinates)).to be true
+        ai.place(ai.ships[0], coordinates)
+        coordinates = ai.select_placement_coordinates(ai.ships[1])
+        expect(ai.board.valid_placement?(ai.ships[1], coordinates)).to be true
       end
     end
   end

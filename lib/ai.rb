@@ -7,7 +7,7 @@ class AI < Player
   end
 
   def place_ships
-    @ships.each do |ship_key, ship|
+    @ships.each do |ship|
       coordinates = select_placement_coordinates(ship)
       place(ship, coordinates)
     end
