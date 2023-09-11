@@ -83,12 +83,44 @@ class Board
   end
 
   def render(reveal = false)
-    "  1 2 3 4 \n" +
-    "A #{r("A1", reveal)} #{r("A2", reveal)} #{r("A3", reveal)} #{r("A4", reveal)} \n" +
-    "B #{r("B1", reveal)} #{r("B2", reveal)} #{r("B3", reveal)} #{r("B4", reveal)} \n" +
-    "C #{r("C1", reveal)} #{r("C2", reveal)} #{r("C3", reveal)} #{r("C4", reveal)} \n" +
-    "D #{r("D1", reveal)} #{r("D2", reveal)} #{r("D3", reveal)} #{r("D4", reveal)} \n"
+    "#{render_first_line}" +
+    "#{render_board_body(reveal)}"
   end
+
+  def render_first_line
+    first_line = "  1 "
+    last = 1
+    (width - 1).times do
+      pixel = last.next
+      first_line += "#{pixel} "
+      last = pixel
+    end
+    first_line += "\n"
+  end
+
+  def render_board_body(reveal = false)
+    current_row = "A"
+    body = render_body_row(current_row, reveal)
+    (length-1).times do
+      current_row = current_row.next
+      row = render_body_row(current_row, reveal)
+      body += row
+    end
+    body
+  end
+
+  def render_body_row(current_row, reveal = false)
+    line = "#{current_row} "
+    current_column = "1"
+    length.times do
+      cell = "#{current_row}#{current_column}"
+      pixel = "#{r(cell, reveal)} "
+      line += pixel
+      current_column = current_column.next
+    end
+    line += "\n"
+  end
+
 
   def r(cell, reveal = false)
     @cells[cell].render(reveal)
