@@ -1,7 +1,9 @@
 class Board
-  attr_reader :cells
+  attr_reader :cells, :length, :width
   def initialize(length = 4, width = 4)
     @cells = cell_maker(length, width)
+    @length = length
+    @width = width
   end
 
   def grid_maker(length, width)
@@ -31,7 +33,7 @@ class Board
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate)
   end
-
+  
   def valid_placement?(ship, coordinates)
     valid_length?(ship, coordinates) && 
     consecutive?(ship, coordinates) && 
