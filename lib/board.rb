@@ -1,5 +1,5 @@
 class Board
-  attr_reader :cells
+  attr_reader :cells, :length, :width
   def initialize(length = 4, width = 4)
     @cells = cell_maker(length, width)
     # @cells = {
@@ -20,6 +20,8 @@ class Board
     #   "D3" => Cell.new("D3"),
     #   "D4" => Cell.new("D4")
     # }
+    @length = length
+    @width = width
   end
 
   def grid_maker(length, width)
@@ -49,12 +51,13 @@ class Board
   def valid_coordinate?(coordinate)
     @cells.keys.include?(coordinate)
   end
-
+  
   def valid_placement?(ship, coordinates)
     valid_length?(ship, coordinates) && 
     consecutive?(ship, coordinates) && 
     not_diagonal?(ship, coordinates) && 
-    all_vacant?(ship, coordinates)
+    all_vacant?(ship, coordinates) &&
+    coordinates.all? { |coordinate| valid_coordinate?(coordinate) }
   end
 
   def valid_length?(ship, coordinates)

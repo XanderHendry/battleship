@@ -3,54 +3,47 @@ require './lib/player.rb'
 class AI < Player
 
   def render_board
-    @board.render(true)
+    @board.render
   end
 
   def place_ships
-    coordinates = select_placement_coordinates(:cruiser)
-    place(:cruiser, coordinates)
-    coordinates = select_placement_coordinates(:submarine)
-    place(:submarine, coordinates)
-  end
-
-  def select_placement_coordinates(ship)
-    if ship == :cruiser
-      orientation = [:c_horizontal, :c_vertical].sample
-      self.send(orientation)
-    elsif ship == :submarine
-      orientation = [:s_horizontal, :s_vertical].sample
-      coordinates = self.send(orientation)
-      until @board.valid_placement?(ships[:submarine], coordinates) == true
-        orientation = [:s_horizontal].sample
-        coordinates = self.send(orientation)
-      end
-      coordinates
+    @ships.each do |ship_key, ship|
+      coordinates = select_placement_coordinates(ship)
+      place(ship, coordinates)
     end
   end
 
-  def c_horizontal
-    first = ["A1", "A2", "B1", "B2", "C1", "C2", "D1", "D2"].sample
-    second = first.split("")[0]+first.split("")[1].next
-    third = first.split("")[0]+first.split("")[1].next.next
-    [first, second, third]
+  def select_placement_coordinates(ship)
+    orientation = [:horizontal, :vertical].sample
+    coordinates = self.send(orientation, ship)
+    until @board.valid_placement?(ship, coordinates) == true
+      orientation = [:horizontal, :vertical].sample
+      coordinates = self.send(orientation, ship)
+    end
+    coordinates
   end
 
-  def c_vertical
-    first = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4"].sample
-    second = first.split("")[0].next+first.split("")[1]
-    third = first.split("")[0].next.next+first.split("")[1]
-    [first, second, third]
+  def horizontal(ship)
+    first = @board.grid_maker(@board.length, (@board.width - ship.length + 1)).sample
+    placement = [first]
+    previous_coordinate = first
+    (ship.length - 1).times do 
+      next_coordinate = previous_coordinate.split("")[0]+previous_coordinate.split("")[1].next
+      placement << next_coordinate
+      previous_coordinate = next_coordinate
+    end
+    placement
   end
 
-  def s_horizontal
-    first = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3", "D1", "D2", "D3"].sample
-    second = first.split("")[0]+first.split("")[1].next
-    [first, second]
-  end
-
-  def s_vertical
-    first = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4"].sample
-    second = first.split("")[0].next+first.split("")[1]
-    [first, second]
+  def vertical(ship)
+    first = @board.grid_maker((@board.length - ship.length + 1), @board.width).sample
+    placement = [first]
+    previous_coordinate = first
+    (ship.length - 1).times do 
+      next_coordinate = previous_coordinate.split("")[0].next+previous_coordinate.split("")[1]
+      placement << next_coordinate
+      previous_coordinate = next_coordinate
+    end
+    placement
   end
 end
