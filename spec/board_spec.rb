@@ -17,6 +17,16 @@ RSpec.describe Board do
         expect(cell).to be_a(Cell)
       end
     end
+
+    it 'can initialize with a custom board size' do
+      big_board = Board.new(27, 27)
+      expect(big_board).to be_a(Board)
+      expect(big_board.cells).to be_a(Hash)
+      expect(big_board.cells.length).to eq(729)
+      big_board.cells.keys.each do |cell_name|
+        expect(cell_name).to be_a(String)
+      end
+    end
   end
 
   describe '#valid_coordinate?' do
