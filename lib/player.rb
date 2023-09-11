@@ -5,8 +5,7 @@ class Player
   def initialize(length = 4, width = 4)
     @board = Board.new(length, width)
     @fireable_cells = @board.keys
-    @ships = [Ship.new("Cruiser", 3),
-     Ship.new("Submarine", 2)]
+    @ships = [Ship.new("Cruiser", 3), Ship.new("Submarine", 2)]
   end
      
   def place(ship, coordinates)
@@ -18,6 +17,6 @@ class Player
   end
     
   def ship_health
-    @ships.values.map{ |ship| ship.health}.sum
+    @ships.map{ |ship| ship.health}.sum
   end
 end
