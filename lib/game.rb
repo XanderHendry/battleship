@@ -18,7 +18,7 @@ class Game
   end
 
   def setup
-    player2.place_ships
+    @player2.place_ships
     puts "I have laid out my ships on the grid."
     puts "You now need to lay out your two ships."
     gets
@@ -26,36 +26,41 @@ class Game
     puts "The Cruiser is three units long and the Submarine is two units long."
     puts "Enter the squares for the Cruiser (3 spaces):"
     coordinates = gets.chomp.split(" ")
-    until player1.board.valid_placement?(:cruiser, coordinates)
+    ship = @player1.ships[:cruiser]
+    until @player1.board.valid_placement?(ship, coordinates)
       puts "Those are invalid coordinates. Please try again"
       coordinates = gets.chomp.split(" ")
     end
-    player1.place(:cruiser, coordinates)
+    @player1.place(:cruiser, coordinates)
     render
     puts "Enter the squares for the Submarine (2 spaces):"
     coordinates = gets.chomp.split(" ")
-    until player1.board.valid_placement?(:submarine, coordinates)
+    ship = @player1.ships[:submarine]
+    until @player1.board.valid_placement?(ship, coordinates)
       puts "Those are invalid coordinates. Please try again"
       coordinates = gets.chomp.split(" ")
     end
-    player1.place(:submarine, coordinates)
+    @player1.place(:submarine, coordinates)
     render
     gameplay
   end
 
   def gameplay
-    until player1.ship_health == 0 || player2.ship_health == 0
-      turn
+    until @player1.ship_health == 0 || @player2.ship_health == 0
+      human_turn 
+      unless @player2.ship_health == 0
+        ai_turn
+      end
     end
     end_game
   end
 
   def end_game
-    if player1.ship_health == 0
-      "I won!"
+    if @player1.ship_health == 0
+      puts "I won!"
       gets
     else
-      "You won!"
+      puts "You won!"
       gets
     end
     main_menu
@@ -64,42 +69,42 @@ class Game
   def render
     system("clear")
     puts "=============COMPUTER BOARD============="
-    puts player2.render_board
+    puts @player2.render_board
     puts "==============PLAYER BOARD=============="
-    puts player1.render_board
+    puts @player1.render_board
   end
 
-  def turn
-    human_turn
-    ai_turn
-  end
+  # def turnq
+  #   human_turn
+  #   ai_turn
+  # end
 
   def human_turn
     puts "Enter the coordinate for your shot:"
     coordinate = gets.chomp
-    until player2.board.valid_coordinate?(coordinate) && player1.fireable_cells.include?(coordinate)
+    until @player2.board.valid_coordinate?(coordinate) && @player1.fireable_cells.include?(coordinate)
       puts "Please enter a valid coordinate:"
       coordinate = gets.chomp
     end
-    player2.fire(coordinate)
-    player1.fireable_cells.delete(coordinate)
+    @player2.fire(coordinate)
+    @player1.fireable_cells.delete(coordinate)
     render
-    feedback(player2)
+    feedback(@player2, coordinate)
     gets
   end
 
   def ai_turn
-    coordinate = player2.fireable_cells.sample
+    coordinate = @player2.fireable_cells.sample
     puts "My turn. I am firing on #{coordinate}."
     gets
-    player1.fire(coordinate)
-    player2.fireable_cells.delete(coordinate)
+    @player1.fire(coordinate)
+    @player2.fireable_cells.delete(coordinate)
     render
-    feedback(player1)
+    feedback(@player1, coordinate)
     gets
   end
 
-  def feedback(player)
+  def feedback(player, coordinate)
     pronoun_hash = Hash.new
     if player.class == Human
       pronoun_hash[:possessive] = "My"

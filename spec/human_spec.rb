@@ -46,18 +46,4 @@ RSpec.describe Human do
       expect(human.place(:cruiser, ['A1', 'B2', 'C3'])).to be_nil
     end
   end
-
-  xdescribe '#fire' do
-    xit 'can fire upon an opponents board' do
-      ai = AI.new
-      human.fire("A1")
-      expect(ai.board.render).to eq(("  1 2 3 4 \n" + "A M . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
-    end 
-    
-    xit 'will return false if the cell has already been fired on' do
-      ai = AI.new
-      human.fire("A1")
-      expect.(human.fire("A1")).to be_nil
-    end
-  end
 end
