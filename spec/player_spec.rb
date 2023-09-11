@@ -49,19 +49,10 @@ RSpec.describe Player do
   # end
 
   describe '#fire' do
-    it 'will fire upon the board' do
-      player.fire("A1")
-      expect(player.board.render).to eq(("  1 2 3 4 \n" + "A M . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
-    end
-
-    xit 'will return false if the cell has already been fired on' do
-      player.fire("A1")
-      expect.(player.fire("A1")).to be_nil
-    end
-    xit 'can fire upon an opponents board' do
-      ai = AI.new
-      player.fire("A1")
-      expect(ai.board.render).to eq(("  1 2 3 4 \n" + "A M . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
+    it 'will fire upon the players board' do
+      expect(player.board.render).to eq("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
+      player.fire('A1')
+      expect(player.board.render).to eq("  1 2 3 4 \n" + "A M . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
     end
   end
 

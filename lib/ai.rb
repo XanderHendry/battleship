@@ -3,13 +3,13 @@ require './lib/player.rb'
 class AI < Player
 
   def render_board
-    @board.render
+    @board.render(true)
   end
 
   def place_ships
     coordinates = select_placement_coordinates(:cruiser)
     place(:cruiser, coordinates)
-    coordinates = select_placement_coordinates_submarine
+    coordinates = select_placement_coordinates(:submarine)
     place(:submarine, coordinates)
   end
 

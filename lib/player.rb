@@ -17,7 +17,7 @@ class Player
     @board.cells[coordinate].fire_upon
   end
     
-  def total_health
+  def ship_health
     @ships.values.map{ |ship| ship.health}.sum
   end
 end
