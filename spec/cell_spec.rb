@@ -67,29 +67,29 @@ RSpec.describe Cell do
 
   describe '#render' do
     it 'will return "." if the cell had not been fired upon and has no ship' do
-      expect(@cell.render).to eq(".")
+      expect(@cell.render).to eq("\e[44m#{"."}\e[0m")
     end  
     
     it 'will return "." if the cell had not been fired upon and contains a ship' do
       @cell.place_ship(@ship)
-      expect(@cell.render).to eq(".")
+      expect(@cell.render).to eq("\e[44m#{"."}\e[0m")
     end 
     
     it 'will return "S" if the cell had not been fired upon and contains a ship with the optional argument true' do
       @cell.place_ship(@ship)
-      expect(@cell.render(true)).to eq("S")
+      expect(@cell.render(true)).to eq("\e[47m#{"S"}\e[0m")
     end  
     
     it 'will return "M" if the cell had been fired upon and has no ship' do
       @cell.fire_upon
-      expect(@cell.render).to eq("M")
+      expect(@cell.render).to eq("\e[44m#{"\e[32m#{"M"}\e[0m"}\e[0m")
     end 
     
     it 'will return "H" if the cell has been fired upon and contains a non-sunk ship' do
       @cell.place_ship(@ship)
       @cell.fire_upon
       expect(@ship.sunk?).to be false
-      expect(@cell.render).to eq("H")
+      expect(@cell.render).to eq("\e[47m#{"\e[5m#{"\e[31m#{"H"}\e[0m"}\e[25m"}\e[0m")
     end
 
     it 'will return "X" if the cell has been fired upon and contains a sunk ship' do
@@ -97,7 +97,7 @@ RSpec.describe Cell do
       @cell.place_ship(ship)
       @cell.fire_upon
       expect(ship.sunk?).to be true
-      expect(@cell.render).to eq("X")
+      expect(@cell.render).to eq("\e[44m#{"\e[37m#{"X"}\e[0m"}\e[0m")
     end 
   end
 end

@@ -141,17 +141,17 @@ RSpec.describe Board do
     end
 
     it 'will render the board' do
-      expect(@board.render).to eq("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
+      expect(@board.render).to eq("  1 2 3 4 \nA \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nB \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nC \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nD \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \n")
     end
 
     it 'will render the board with the ship hidden' do
       @board.place(@cruiser, ['A1', 'A2', 'A3'])
-      expect(@board.render).to eq("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
+      expect(@board.render).to eq("  1 2 3 4 \nA \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nB \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nC \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nD \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \n")
     end
     
     it 'will render the board with the ship displayed' do
       @board.place(@cruiser, ['A1', 'A2', 'A3'])
-      expect(@board.render(true)).to eq("  1 2 3 4 \n" + "A S S S . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
+      expect(@board.render(true)).to eq("  1 2 3 4 \nA \e[47mS\e[0m \e[47mS\e[0m \e[47mS\e[0m \e[44m.\e[0m \nB \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nC \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nD \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \n")
     end
 
     it 'will render the board with hits, misses, and sunken ships, with the ship hidden' do
@@ -161,7 +161,7 @@ RSpec.describe Board do
       @board.cells['B4'].fire_upon
       @board.cells['C1'].fire_upon
       @board.cells['D1'].fire_upon
-      expect(@board.render).to eq("  1 2 3 4 \n" + "A H . . . \n" + "B . . . M \n" + "C X . . . \n" + "D X . . . \n")
+      expect(@board.render).to eq("  1 2 3 4 \nA \e[47m\e[5m\e[31mH\e[0m\e[25m\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nB \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m#{"\e[32m#{"M"}\e[0m"}\e[0m \nC \e[44m#{"\e[37m#{"X"}\e[0m"}\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nD \e[44m#{"\e[37m#{"X"}\e[0m"}\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \n")
     end 
 
     it 'will render the board with hits, misses, and sunken ships, with the ship displayed' do
@@ -171,7 +171,7 @@ RSpec.describe Board do
       @board.cells['B4'].fire_upon
       @board.cells['C1'].fire_upon
       @board.cells['D1'].fire_upon
-      expect(@board.render(true)).to eq("  1 2 3 4 \n" + "A H S S . \n" + "B . . . M \n" + "C X . . . \n" + "D X . . . \n")
+      expect(@board.render(true)).to eq("  1 2 3 4 \nA \e[47m\e[5m\e[31mH\e[0m\e[25m\e[0m \e[47mS\e[0m \e[47mS\e[0m \e[44m.\e[0m \nB \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m#{"\e[32m#{"M"}\e[0m"}\e[0m \nC \e[44m#{"\e[37m#{"X"}\e[0m"}\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nD \e[44m#{"\e[37m#{"X"}\e[0m"}\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \n")
     end
   end
 
