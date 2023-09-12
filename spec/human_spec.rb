@@ -33,15 +33,4 @@ RSpec.describe Human do
       expect(human.render_board).to eq("  1 2 3 4 \n" + "A S S S . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
     end
   end
-
-  # describe '#place' do
-  #   it 'will iterate through ships array and acquire coordinates for each placement' do
-  #     human.place
-  #     expect(human.board.cells['A1'].ship).to eq(human.ships[0])
-  #     expect(human.board.cells['A2'].ship).to eq(human.ships[0])
-  #     expect(human.board.cells['A3'].ship).to eq(human.ships[0])
-  #     expect(human.board.cells['B1'].ship).to eq(human.ships[1])
-  #     expect(human.board.cells['B2'].ship).to eq(human.ships[1])
-  #   end
-  # end
 end

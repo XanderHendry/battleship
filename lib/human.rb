@@ -7,18 +7,18 @@ class Human < Player
     @board.render(true)
   end
 
-  def place
+  def place_ships
     @ships.each do |ship|
       puts "Enter the squares for the #{ship.name} (#{ship.length} spaces)"
-      coordinates = gets.chomp.split(" ")
+      coordinates = gets.upcase.chomp.split(" ")
       until @board.valid_placement?(ship, coordinates) || coordinates == "quit"
         puts "That is not a valid placement, please try again!"
-        coordinates = gets.chomp
+        coordinates = gets.upcase.chomp
       end
-      super(ship, coordinates)
+      place(ship, coordinates)
       puts "==============PLAYER BOARD=============="
       puts render_board
-      puts "#{ship.name} placed, press enter to move on!"
+      puts "#{ship.name} placed, press enter to continue.."
       gets
     end
     puts "==============PLAYER BOARD=============="
