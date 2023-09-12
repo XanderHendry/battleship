@@ -23,24 +23,25 @@ class Game
     puts "You now need to lay out your two ships."
     gets
     render
-    puts "The Cruiser is three units long and the Submarine is two units long."
-    puts "Enter the squares for the Cruiser (3 spaces):"
-    coordinates = gets.chomp.split(" ")
-    ship = @player1.ships[:cruiser]
-    until @player1.board.valid_placement?(ship, coordinates)
-      puts "Those are invalid coordinates. Please try again"
-      coordinates = gets.chomp.split(" ")
-    end
-    @player1.place(:cruiser, coordinates)
-    render
-    puts "Enter the squares for the Submarine (2 spaces):"
-    coordinates = gets.chomp.split(" ")
-    ship = @player1.ships[:submarine]
-    until @player1.board.valid_placement?(ship, coordinates)
-      puts "Those are invalid coordinates. Please try again"
-      coordinates = gets.chomp.split(" ")
-    end
-    @player1.place(:submarine, coordinates)
+    @player1.place_ships
+    # puts "The Cruiser is three units long and the Submarine is two units long."
+    # puts "Enter the squares for the Cruiser (3 spaces):"
+    # coordinates = gets.chomp.split(" ")
+    # ship = @player1.ships[:cruiser]
+    # until @player1.board.valid_placement?(ship, coordinates)
+    #   puts "Those are invalid coordinates. Please try again"
+    #   coordinates = gets.chomp.split(" ")
+    # end
+    # @player1.place(:cruiser, coordinates)
+    # render
+    # puts "Enter the squares for the Submarine (2 spaces):"
+    # coordinates = gets.chomp.split(" ")
+    # ship = @player1.ships[:submarine]
+    # until @player1.board.valid_placement?(ship, coordinates)
+    #   puts "Those are invalid coordinates. Please try again"
+    #   coordinates = gets.chomp.split(" ")
+    # end
+    # @player1.place(:submarine, coordinates)
     render
     gameplay
   end
@@ -74,10 +75,10 @@ class Game
     puts @player1.render_board
   end
 
-  # def turnq
-  #   human_turn
-  #   ai_turn
-  # end
+  def turn
+    human_turn
+    ai_turn
+  end
 
   def human_turn
     puts "Enter the coordinate for your shot:"
