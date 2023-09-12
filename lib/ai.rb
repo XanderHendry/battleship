@@ -3,7 +3,7 @@ require './lib/player.rb'
 class AI < Player
 
   def render_board
-    @board.render
+    @board.render(true)
   end
 
   def place_ships
