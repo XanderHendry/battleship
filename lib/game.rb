@@ -6,11 +6,13 @@ class Game
 
   def main_menu
     puts "Welcome to BATTLESHIP"
-    puts "Enter p to play. Enter q to quit."
-    input = gets.chomp
-    if input == "p"
+    puts "Enter p to play. Enter c for custom game. Enter q to quit."
+    input = gets.upcase.chomp
+    if input == "P"
       setup 
-    elsif input == "q"
+    elsif input == "C"
+      custom_game
+    elsif input == "Q"
       return 
     else
       main_menu
@@ -20,28 +22,10 @@ class Game
   def setup
     @player2.place_ships
     puts "I have laid out my ships on the grid."
-    puts "You now need to lay out your two ships."
+    puts "You now need to lay out your two ships. Press enter to continue.."
     gets
     render
     @player1.place_ships
-    # puts "The Cruiser is three units long and the Submarine is two units long."
-    # puts "Enter the squares for the Cruiser (3 spaces):"
-    # coordinates = gets.chomp.split(" ")
-    # ship = @player1.ships[:cruiser]
-    # until @player1.board.valid_placement?(ship, coordinates)
-    #   puts "Those are invalid coordinates. Please try again"
-    #   coordinates = gets.chomp.split(" ")
-    # end
-    # @player1.place(:cruiser, coordinates)
-    # render
-    # puts "Enter the squares for the Submarine (2 spaces):"
-    # coordinates = gets.chomp.split(" ")
-    # ship = @player1.ships[:submarine]
-    # until @player1.board.valid_placement?(ship, coordinates)
-    #   puts "Those are invalid coordinates. Please try again"
-    #   coordinates = gets.chomp.split(" ")
-    # end
-    # @player1.place(:submarine, coordinates)
     render
     gameplay
   end
@@ -82,10 +66,10 @@ class Game
 
   def human_turn
     puts "Enter the coordinate for your shot:"
-    coordinate = gets.chomp
+    coordinate = gets.upcase.chomp
     until @player2.board.valid_coordinate?(coordinate) && @player1.fireable_cells.include?(coordinate)
       puts "Please enter a valid coordinate:"
-      coordinate = gets.chomp
+      coordinate = gets.upcase.chomp
     end
     @player2.fire(coordinate)
     @player1.fireable_cells.delete(coordinate)
@@ -96,12 +80,13 @@ class Game
 
   def ai_turn
     coordinate = @player2.fireable_cells.sample
-    puts "My turn. I am firing on #{coordinate}."
+    puts "My turn. I am firing on #{coordinate}. Press enter to continue.."
     gets
     @player1.fire(coordinate)
     @player2.fireable_cells.delete(coordinate)
     render
     feedback(@player1, coordinate)
+    puts "Press enter to continue.."
     gets
   end
 
@@ -126,4 +111,31 @@ class Game
       puts "#{pronoun_hash[:subject]} sunk one of #{pronoun_hash[:opp_possessive]} ships"
     end
   end
+
+  def custom_game
+    puts "Customize board size?"
+    puts "Y/N"
+    input = gets.upcase.chomp
+    if input == "Y"
+      puts "Enter board size. (Max 10)"
+      input = gets.to_i
+      range = (4..10)
+      until range.include?(input) == true 
+        puts "invalid board size! please try again!"
+        input = gets.to_i
+        if input == "QUIT"
+          main_menu
+          break
+        end
+      end
+      length = input
+      width = input
+      @player1 = Human.new(length, width)
+      @player2 = AI.new(length,width)
+      setup
+    else
+      main_menu
+    end
+  end
+    
 end
