@@ -75,11 +75,12 @@ class Game
   end
 
   def ai_turn
-    coordinate = @player2.fireable_cells.sample
+    # coordinate = @player2.fireable_cells.sample
+    coordinate = @player2.pick_shot
     puts "My turn. I am firing on #{coordinate}. Press enter to continue.."
     gets
     @player1.fire(coordinate)
-    @player2.fireable_cells.delete(coordinate)
+    # @player2.fireable_cells.delete(coordinate)
     render
     feedback(@player1, coordinate)
   end

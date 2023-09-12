@@ -46,4 +46,11 @@ class AI < Player
     end
     placement
   end
+
+  def pick_shot
+    coordinate = fireable_cells.sample
+    fireable_cells.delete(coordinate)
+    coordinate
+  end
+
 end
