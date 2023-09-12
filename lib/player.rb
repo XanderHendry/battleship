@@ -1,7 +1,7 @@
 class Player
-  attr_reader :board,
-              :fireable_cells,
-              :ships
+  attr_reader   :board,
+                :fireable_cells
+  attr_accessor :ships
   def initialize(length = 4, width = 4)
     @board = Board.new(length, width)
     @fireable_cells = @board.keys

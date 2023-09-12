@@ -13,16 +13,14 @@ class Human < Player
       coordinates = gets.upcase.chomp.split(" ")
       until @board.valid_placement?(ship, coordinates) || coordinates == "quit"
         puts "That is not a valid placement, please try again!"
-        coordinates = gets.upcase.chomp
+        coordinates = gets.upcase.chomp.split(" ")
       end
       place(ship, coordinates)
+      system("clear")
       puts "==============PLAYER BOARD=============="
       puts render_board
-      puts "#{ship.name} placed, press enter to continue.."
-      gets
+      puts "#{ship.name} placed"
     end
-    puts "==============PLAYER BOARD=============="
-    puts render_board
     puts "All ships placed! Press enter to start game!"
     gets
   end

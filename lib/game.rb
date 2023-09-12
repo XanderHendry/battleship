@@ -5,6 +5,7 @@ class Game
   end
 
   def main_menu
+    system("clear")
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter c for custom game. Enter q to quit."
     input = gets.upcase.chomp
@@ -20,6 +21,7 @@ class Game
   end
 
   def setup
+    system("clear")
     @player2.place_ships
     puts "I have laid out my ships on the grid."
     puts "You now need to lay out your two ships. Press enter to continue.."
@@ -59,11 +61,6 @@ class Game
     puts @player1.render_board
   end
 
-  def turn
-    human_turn
-    ai_turn
-  end
-
   def human_turn
     puts "Enter the coordinate for your shot:"
     coordinate = gets.upcase.chomp
@@ -75,7 +72,6 @@ class Game
     @player1.fireable_cells.delete(coordinate)
     render
     feedback(@player2, coordinate)
-    gets
   end
 
   def ai_turn
@@ -86,8 +82,6 @@ class Game
     @player2.fireable_cells.delete(coordinate)
     render
     feedback(@player1, coordinate)
-    puts "Press enter to continue.."
-    gets
   end
 
   def feedback(player, coordinate)
@@ -113,29 +107,87 @@ class Game
   end
 
   def custom_game
+    system("clear")
     puts "Customize board size?"
-    puts "Y/N"
-    input = gets.upcase.chomp
-    if input == "Y"
-      puts "Enter board size. (Max 10)"
-      input = gets.to_i
-      range = (4..10)
-      until range.include?(input) == true 
-        puts "invalid board size! please try again!"
-        input = gets.to_i
-        if input == "QUIT"
-          main_menu
-          break
-        end
-      end
-      length = input
-      width = input
-      @player1 = Human.new(length, width)
-      @player2 = AI.new(length,width)
-      setup
-    else
+    input1 = yn?
+    if input1 == "Y"
+      custom_board_menu
+    end
+    system("clear")
+    puts "Customize ships?"
+    input2 = yn?
+    if input2 == "Y"
+      custom_ship_menu
+    end
+    if input1 == "N" && input2 == "N"
       main_menu
     end
+    setup
   end
-    
+
+  def custom_board_menu
+    system("clear")
+    puts "Enter board size. (Max 10)"
+    input = gets.to_i
+    range = (4..10)
+    until range.include?(input) == true 
+      puts "invalid board size! please try again!"
+      input = gets.to_i
+      if input == "QUIT"
+        main_menu
+        break
+      end
+    end
+    length = input
+    width = input
+    @player1 = Human.new(length, width)
+    @player2 = AI.new(length,width)
+    render
+    puts "Here is your #{length}x#{width} board"
+    gets
+  end
+
+  def custom_ship_menu
+    @player1.ships = []
+    @player2.ships = []
+    another_ship = "Y"
+    current_ship = "1"
+    system("clear")
+    puts "Please enter the name of the ship"
+    until another_ship == "N" || @player1.ship_health >= (0.5 * @player1.board.keys.count)
+      ships = ship_shaper(current_ship)
+      @player1.ships << ships[0]
+      @player2.ships << ships[1]
+      current_ship.next!
+      if @player1.ship_health < (0.5 * @player1.board.keys.count)
+        puts "Would you like to create another ship?"
+        another_ship = yn?
+        system("clear")
+      else
+        puts "Your ship yard is full."
+      end
+    end
+    puts "Let's start placing ships."
+  end
+
+  def ship_shaper(current_ship)
+    puts "Enter the name of ship number #{current_ship}."
+    name = gets.chomp
+    puts "Please enter then length of the ship. It must be between 2 and #{@player1.board.length - 1}"
+    length = 0
+    until (2..(@player1.board.length - 1)).include?(length)
+      length = gets.to_i
+    end
+    [ship1 = Ship.new(name, length), ship2 = Ship.new(name, length)]
+  end
+ 
+  def yn?
+    puts "(Y/N)"
+    input = gets.upcase.chomp
+    until input == "Y" || input == "N"
+      puts "Please answer Y or N"
+      input = gets.upcase.chomp
+    end
+    input
+  end
 end
