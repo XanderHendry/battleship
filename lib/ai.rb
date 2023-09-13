@@ -87,12 +87,12 @@ class AI < Player
 
   def educated_guess(last)
     last = last.split('')
-    orientation = [:horizontal, :vertical].sample
-    if orientation == :horizontal
-      coordinate = last[0] + last[1].next
-    else
-      coordinate = last[0].next + last[1]
+    options = [(last[0] + last[1].next), (last[0].next + last[1]), (last[0].succ + last[1]), (last[0] + last[1].succ)]
+    coordinate = options.sample
+    until @fireable_cells.include?(coordinate)
+      coordinate = options.sample
     end
+    @fired_shots << @opponent.board.cells[coordinate]
     coordinate
   end
 
