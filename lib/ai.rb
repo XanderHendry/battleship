@@ -12,7 +12,7 @@ class AI < Player
 
 
   def render_board
-    @board.render(true)
+    @board.render
   end
 
   def place_ships

@@ -24,13 +24,13 @@ RSpec.describe Human do
 
   describe '#render_board' do
     it 'will render Human board' do
-      expect(human.render_board).to eq(("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
+      expect(human.render_board).to eq("  1 2 3 4 \nA \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nB \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nC \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nD \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \n")
     end
     
     it 'will render board with ships displayed' do
-      expect(human.render_board).to eq(("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))
+      expect(human.render_board).to eq("  1 2 3 4 \nA \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nB \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nC \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nD \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \n")
       human.board.place(human.ships[0], ['A1', 'A2', 'A3'])
-      expect(human.render_board).to eq("  1 2 3 4 \n" + "A S S S . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
+      expect(human.render_board).to eq("  1 2 3 4 \nA \e[47mS\e[0m \e[47mS\e[0m \e[47mS\e[0m \e[44m.\e[0m \nB \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nC \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nD \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \n")
     end
   end
 end

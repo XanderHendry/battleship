@@ -34,9 +34,9 @@ RSpec.describe Player do
 
   describe '#fire' do
     it 'will fire upon the players board' do
-      expect(player.board.render).to eq("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
+      expect(player.board.render).to eq("  1 2 3 4 \nA \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nB \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nC \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nD \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \n")
       player.fire('A1')
-      expect(player.board.render).to eq("  1 2 3 4 \n" + "A M . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n")
+      expect(player.board.render).to eq("  1 2 3 4 \nA \e[44m#{"\e[32m#{"M"}\e[0m"}\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nB \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nC \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \nD \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \e[44m.\e[0m \n")
     end
   end
 
