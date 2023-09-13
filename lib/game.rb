@@ -9,14 +9,9 @@ class Game
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter c for custom game. Enter q to quit."
     input = gets.upcase.chomp
-    puts "Choose computer difficulty \n (Easy, Normal)"
-    input_2 = gets.upcase.chomp
-    until input_2 == "EASY" || input_2 == "NORMAL"
-      puts "Invalid option, please choose between \n (Easy, Normal)"
-      input_2 = gets.upcase.chomp
-    end
-    @player2.change_difficulty(input_2)
+    return if input == "Q"
     if input == "P"
+      difficulty_query
       setup 
     elsif input == "C"
       custom_game
@@ -25,6 +20,16 @@ class Game
     else
       main_menu
     end
+  end
+
+  def difficulty_query
+    puts "Choose computer difficulty \n (Easy, Normal)"
+    input_2 = gets.upcase.chomp
+    until input_2 == "EASY" || input_2 == "NORMAL"
+      puts "Invalid option, please choose between \n (Easy, Normal)"
+      input_2 = gets.upcase.chomp
+    end
+    @player2.change_difficulty(input_2)
   end
 
   def setup
@@ -82,12 +87,10 @@ class Game
   end
 
   def ai_turn
-    # coordinate = @player2.fireable_cells.sample
     coordinate = @player2.pick_shot
     puts "My turn. I am firing on #{coordinate}. Press enter to continue.."
     gets
     @player1.fire(coordinate)
-    # @player2.fireable_cells.delete(coordinate)
     render
     feedback(@player1, coordinate)
   end
@@ -135,9 +138,9 @@ class Game
 
   def custom_board_menu
     system("clear")
-    puts "Enter board size. (Max 10)"
+    puts "Enter board size. (Max 9)"
     input = gets.to_i
-    range = (4..10)
+    range = (4..9)
     until range.include?(input) == true 
       puts "invalid board size! please try again!"
       input = gets.to_i
