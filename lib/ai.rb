@@ -1,6 +1,14 @@
 require './lib/player.rb'
 
 class AI < Player
+  attr_reader :difficulty,
+              :fired_shots
+  def initialize(length, width)
+    super 
+    @difficulty = "NORMAL"
+    @fired_shots = []
+  end
+
 
   def render_board
     @board.render(true)

@@ -7,7 +7,7 @@ RSpec.describe AI do
     expect(AI.superclass).to eq(Player)
   end
   describe '#initialize' do
-    it 'can initialize' do
+    it 'initializes with inherited and additional attributes' do
       expect(ai).to be_a(AI)
       expect(ai.board).to be_a(Board)
       expect(ai.fireable_cells).to eq(ai.board.keys)
@@ -18,6 +18,8 @@ RSpec.describe AI do
       expect(ai.ships[1]).to be_a(Ship)
       expect(ai.ships[1].name).to eq("Submarine")
       expect(ai.ships[1].length).to eq(2)
+      expect(ai.difficulty).to eq("NORMAL")
+      expect(ai.fired_shots).to eq([])
     end
   end
 
@@ -40,4 +42,5 @@ RSpec.describe AI do
       end
     end
   end
+
 end
