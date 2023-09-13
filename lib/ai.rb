@@ -5,7 +5,7 @@ class AI < Player
               :fired_shots
   def initialize(length = 4, width = 4)
     super 
-    @difficulty = "Normal"
+    @difficulty = "Easy"
     @fired_shots = []
     @opponent = @@players[0]
   end
@@ -58,10 +58,10 @@ class AI < Player
 
   def pick_shot
     case @difficulty
-    when "Normal"
+    when "Easy"
       # binding.pry
       coordinate = normal_shot
-    when "Medium"
+    when "Normal"
       # binding.pry
       if @fired_shots == []
         coordinate = normal_shot
@@ -93,22 +93,16 @@ class AI < Player
       coordinate = options.sample
     end
     @fired_shots << @opponent.board.cells[coordinate]
+    fireable_cells.delete(coordinate)
     coordinate
   end
 
   def change_difficulty(input)
-    # options = ["N", "M"]
-    # puts "Enter n for normal. Enter m for Medium"
-    # input = gets.upcase.chomp
-    # until options.includes?(input)
-    #   puts "invalid option please choose between /n (n, m)"
-    #   input = gets.upcase.chomp
-    # end
     case input
-    when "N"
+    when "EASY"
+      @difficulty = "Easy"
+    when "NORMAL"
       @difficulty = "Normal"
-    when "M"
-      @difficulty = "Medium"
     end
   end
 
