@@ -5,7 +5,7 @@ class AI < Player
               :fired_shots
   def initialize(length = 4, width = 4)
     super 
-    @difficulty = "NORMAL"
+    @difficulty = "Normal"
     @fired_shots = []
     @opponent = @@players[0]
   end
@@ -57,13 +57,32 @@ class AI < Player
   end
 
   def pick_shot
-
     coordinate = fireable_cells.sample
     fireable_cells.delete(coordinate)
     coordinate    
   end
 
+  def change_difficulty(input)
+    # options = ["N", "M"]
+    # puts "Enter n for normal. Enter m for Medium"
+    # input = gets.upcase.chomp
+    # until options.includes?(input)
+    #   puts "invalid option please choose between /n (n, m)"
+    #   input = gets.upcase.chomp
+    # end
+    case input
+    when "N"
+      @difficulty = "Normal"
+    when "M"
+      @difficulty = "Medium"
+    end
+  end
+
   def self.players
+    super
+  end
+
+  def self.clear
     super
   end
 end
