@@ -57,9 +57,43 @@ class AI < Player
   end
 
   def pick_shot
+    case @difficulty
+    when "Normal"
+      # binding.pry
+      coordinate = normal_shot
+    when "Medium"
+      # binding.pry
+      if @fired_shots == []
+        coordinate = normal_shot
+      else
+        case @fired_shots.last.render
+        when "\e[47m\e[5m\e[31mH\e[0m\e[25m\e[0m"
+          coordinate = educated_guess(@fired_shots.last.coordinate)
+        when "\e[44m#{"\e[32m#{"M"}\e[0m"}\e[0m"
+          coordinate = normal_shot
+        when "\e[44m#{"\e[37m#{"X"}\e[0m"}\e[0m" 
+          coordinate = normal_shot
+        end
+      end
+    end
+  end
+
+  def normal_shot
     coordinate = fireable_cells.sample
+    @fired_shots << @opponent.board.cells[coordinate]
     fireable_cells.delete(coordinate)
     coordinate    
+  end
+
+  def educated_guess(last)
+    last = last.split('')
+    orientation = [:horizontal, :vertical].sample
+    if orientation == :horizontal
+      coordinate = last[0] + last[1].next
+    else
+      coordinate = last[0].next + last[1]
+    end
+    coordinate
   end
 
   def change_difficulty(input)
