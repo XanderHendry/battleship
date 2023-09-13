@@ -23,6 +23,13 @@ RSpec.describe AI do
     end
   end
 
+  describe '::players' do
+    it 'will list all instances of Player subclasses' do
+      human = Human.new
+      expect(ai.players).to eq([ai, human])
+    end
+  end
+
   describe '#render_board' do
     it 'will render board with ships displayed' do
       expect(ai.render_board).to eq(("  1 2 3 4 \n" + "A . . . . \n" + "B . . . . \n" + "C . . . . \n" + "D . . . . \n"))

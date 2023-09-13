@@ -3,10 +3,11 @@ require './lib/player.rb'
 class AI < Player
   attr_reader :difficulty,
               :fired_shots
-  def initialize(length, width)
+  def initialize(length = 4, width = 4)
     super 
     @difficulty = "NORMAL"
     @fired_shots = []
+    @opponent = @@players[0]
   end
 
 
@@ -56,9 +57,13 @@ class AI < Player
   end
 
   def pick_shot
+
     coordinate = fireable_cells.sample
     fireable_cells.delete(coordinate)
-    coordinate
+    coordinate    
   end
 
+  def self.players
+    super
+  end
 end
