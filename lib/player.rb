@@ -26,4 +26,8 @@ class Player
   def self.players
     @@players
   end
+
+  def self.clear
+    @@players.clear
+  end
 end

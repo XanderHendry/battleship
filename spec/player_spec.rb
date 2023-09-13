@@ -51,4 +51,22 @@ RSpec.describe Player do
       expect(player.ship_health).to eq(4)
     end
   end
+
+  describe '::players' do
+    it 'will list all instances of Player subclasses' do
+      Player.clear
+      human = Human.new
+      expect(Player.players).to eq([human])
+      Player.clear
+    end
+  end
+
+  describe '::clear' do
+    it 'will clear the @@players array' do
+      human = Human.new
+      expect(Player.players.length).to eq(1)
+      Player.clear
+      expect(Player.players.length).to eq(0)
+    end
+  end
 end
