@@ -96,11 +96,11 @@ class Game
       pronoun_hash[:opp_possessive] = "my"
     end
     case player.board.cells[coordinate].render
-    when "H"
+    when "\e[47m#{"\e[5m#{"\e[31m#{"H"}\e[0m"}\e[25m"}\e[0m"
       puts "#{pronoun_hash[:possessive]} shot on #{coordinate} was a hit"
-    when "M"
+    when "\e[44m#{"\e[32m#{"M"}\e[0m"}\e[0m"
       puts "#{pronoun_hash[:possessive]} shot on #{coordinate} was a miss"
-    when "X" 
+    when "\e[44m#{"\e[37m#{"X"}\e[0m"}\e[0m" 
       puts "#{pronoun_hash[:possessive]} shot on #{coordinate} was a hit"
       puts "#{pronoun_hash[:subject]} sunk one of #{pronoun_hash[:opp_possessive]} ships"
     end
