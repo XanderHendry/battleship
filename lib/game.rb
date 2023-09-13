@@ -9,6 +9,13 @@ class Game
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter c for custom game. Enter q to quit."
     input = gets.upcase.chomp
+    puts "Choose computer difficulty \n (Easy, Normal)"
+    input_2 = gets.upcase.chomp
+    until input_2 == "EASY" || input_2 == "NORMAL"
+      puts "Invalid option, please choose between \n (Easy, Normal)"
+      input_2 = gets.upcase.chomp
+    end
+    @player2.change_difficulty(input_2)
     if input == "P"
       setup 
     elsif input == "C"
@@ -75,11 +82,12 @@ class Game
   end
 
   def ai_turn
-    coordinate = @player2.fireable_cells.sample
+    # coordinate = @player2.fireable_cells.sample
+    coordinate = @player2.pick_shot
     puts "My turn. I am firing on #{coordinate}. Press enter to continue.."
     gets
     @player1.fire(coordinate)
-    @player2.fireable_cells.delete(coordinate)
+    # @player2.fireable_cells.delete(coordinate)
     render
     feedback(@player1, coordinate)
   end

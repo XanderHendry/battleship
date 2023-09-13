@@ -1,6 +1,15 @@
 require './lib/player.rb'
 
 class AI < Player
+  attr_reader :difficulty,
+              :fired_shots
+  def initialize(length = 4, width = 4)
+    super 
+    @difficulty = "Easy"
+    @fired_shots = []
+    @opponent = @@players[0]
+  end
+
 
   def render_board
     @board.render
@@ -45,5 +54,63 @@ class AI < Player
       previous_coordinate = next_coordinate
     end
     placement
+  end
+
+  def pick_shot
+    case @difficulty
+    when "Easy"
+      # binding.pry
+      coordinate = normal_shot
+    when "Normal"
+      # binding.pry
+      if @fired_shots == []
+        coordinate = normal_shot
+      else
+        case @fired_shots.last.render
+        when "\e[47m\e[5m\e[31mH\e[0m\e[25m\e[0m"
+          coordinate = educated_guess(@fired_shots.last.coordinate)
+        when "\e[44m#{"\e[32m#{"M"}\e[0m"}\e[0m"
+          coordinate = normal_shot
+        when "\e[44m#{"\e[37m#{"X"}\e[0m"}\e[0m" 
+          coordinate = normal_shot
+        end
+      end
+    end
+  end
+
+  def normal_shot
+    coordinate = fireable_cells.sample
+    @fired_shots << @opponent.board.cells[coordinate]
+    fireable_cells.delete(coordinate)
+    coordinate    
+  end
+
+  def educated_guess(last)
+    last = last.split('')
+    options = [(last[0] + last[1].next), (last[0].next + last[1]), (last[0].succ + last[1]), (last[0] + last[1].succ)]
+    coordinate = options.sample
+    until @fireable_cells.include?(coordinate)
+      coordinate = options.sample
+    end
+    @fired_shots << @opponent.board.cells[coordinate]
+    fireable_cells.delete(coordinate)
+    coordinate
+  end
+
+  def change_difficulty(input)
+    case input
+    when "EASY"
+      @difficulty = "Easy"
+    when "NORMAL"
+      @difficulty = "Normal"
+    end
+  end
+
+  def self.players
+    super
+  end
+
+  def self.clear
+    super
   end
 end
