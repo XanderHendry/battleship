@@ -9,14 +9,9 @@ class Game
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter c for custom game. Enter q to quit."
     input = gets.upcase.chomp
-    puts "Choose computer difficulty \n (Easy, Normal)"
-    input_2 = gets.upcase.chomp
-    until input_2 == "EASY" || input_2 == "NORMAL"
-      puts "Invalid option, please choose between \n (Easy, Normal)"
-      input_2 = gets.upcase.chomp
-    end
-    @player2.change_difficulty(input_2)
+    return if input == "Q"
     if input == "P"
+      difficulty_query
       setup 
     elsif input == "C"
       custom_game
@@ -25,6 +20,16 @@ class Game
     else
       main_menu
     end
+  end
+
+  def difficulty_query
+    puts "Choose computer difficulty \n (Easy, Normal)"
+    input_2 = gets.upcase.chomp
+    until input_2 == "EASY" || input_2 == "NORMAL"
+      puts "Invalid option, please choose between \n (Easy, Normal)"
+      input_2 = gets.upcase.chomp
+    end
+    @player2.change_difficulty(input_2)
   end
 
   def setup
